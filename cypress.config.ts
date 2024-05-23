@@ -14,7 +14,7 @@ export default defineConfig({
       apiKey: process.env.WOPEE_API_KEY,
       projectUuid: process.env.WOPEE_PROJECT_UUID,
       // branchName: process.env.WOPEE_BRANCH_NAME,
-      pixelToPixelDiffTolerance: process.env.WOPEE_PIXEL_TO_PIXEL_DIFF_TOLERANCE,
+      // pixelToPixelDiffTolerance: process.env.WOPEE_PIXEL_TO_PIXEL_DIFF_TOLERANCE,
       enableSoftAssert: process.env.WOPEE_ENABLE_SOFT_ASSERT,
       // customTags: process.env.WOPEE_CUSTOM_TAGS,
       // ciBuildId: process.env.WOPEE_CI_BUILD_ID,
