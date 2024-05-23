@@ -1,12 +1,12 @@
 {
   "dependencies": {
-    "@wopee-io/wopee.cy": "3.2.0",
+    "@wopee-io/wopee.cy": "^3.2.1",
     "cypress": "^12.0.0",
     "typescript": "^4.9.4"
   },
   "scripts": {
     "cy": "npx cypress run",
-    "tests": "npm install && npm run cy",
+    "tests": "npm install && npm update && npm run cy",
     "tests-in-docker": "docker run --rm --name tests-cy --env-file .env --volume ./:/home/pwuser/cy --env GITHUB_TOKEN=$GITHUB_TOKEN ghcr.io/wopee-io/runtime:latest bash -c 'cd cy && npm run tests'"
   }
 }
