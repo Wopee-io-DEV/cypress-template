@@ -1,8 +1,8 @@
 {
   "dependencies": {
-    "@wopee-io/wopee.cy": "^3.2.1",
-    "cypress": "^12.0.0",
-    "typescript": "^4.9.4"
+    "@wopee-io/wopee.cy": "^4.0.0",
+    "cypress": "^12.5.1",
+    "typescript": "^5.4.5"
   },
   "scripts": {
     "cy": "npx cypress run",

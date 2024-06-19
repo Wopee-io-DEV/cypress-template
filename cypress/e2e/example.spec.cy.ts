@@ -18,11 +18,12 @@ context('Wopee integration smoke', () => {
     cy.wopeeStartScenario('cy-smoke-1');
     cy.get('#navbar').should('be.visible');
 
-    cy.wopeeTrack('Smoke 1 - Whole page - 1', { retryLimit: 1, comment: 'Hello, world!' }, (response) => {
+    cy.wopeeTrack({ stepName: 'Smoke 1 - Whole page - 1', retryLimit: 1, comment: 'Hello, world!' }, (response) => {
       cy.task('log', response);
     });
 
-    cy.get('#navbar').wopeeTrack('Smoke 1 - Separate element - 1', {
+    cy.get('#navbar').wopeeTrack({
+      stepName: 'Smoke 1 - Separate element - 1',
       ignoreAreas: [
         {
           x: 1,
@@ -33,7 +34,8 @@ context('Wopee integration smoke', () => {
       ],
     });
 
-    cy.wopeeTrack('Smoke 1 - Whole page - With additional options - 1', {
+    cy.wopeeTrack({
+      stepName: 'Smoke 1 - Whole page - With additional options - 1',
       pixelToPixelDiffTolerance: 1,
       keepScreenshot: true,
       ignoreAreas: [
@@ -51,22 +53,20 @@ context('Wopee integration smoke', () => {
     cy.wopeeStartScenario('cy-smoke-2');
     cy.get('#navbar').should('be.visible');
 
-    cy.wopeeTrack('Smoke 2 - Whole page - 1');
+    cy.wopeeTrack({ stepName: 'Smoke 2 - Whole page - 1' });
 
-    cy.get('#navbar').wopeeTrack('Smoke 2 - Separate element - 1');
+    cy.get('#navbar').wopeeTrack({ stepName: 'Smoke 2 - Separate element - 1' });
 
-    cy.wopeeTrack('Smoke 2 - With additional options - 1', {
-      pixelToPixelDiffTolerance: 2,
-    });
+    cy.wopeeTrack({ stepName: 'Smoke 2 - With additional options - 1', pixelToPixelDiffTolerance: 2 });
   });
 
   it('Smoke 3', () => {
-    cy.wopeeStartScenario('cy-smoke-3');
+    // cy.wopeeStartScenario('cy-smoke-3');
     cy.visit('/utilities');
 
     cy.get('body > div.container.content-container > div > div > div:nth-child(4) > div > ul > li:nth-child(1)')
-      .wopeeTrack('Smoke 3 - Type: Before - 1')
+      .wopeeTrack({ stepName: 'Smoke 3 - Type: Before - 1', scenarioName: 'cy-smoke-3' })
       .click()
-      .wopeeTrack('Smoke 3 - Type: After - 1');
+      .wopeeTrack({ stepName: 'Smoke 3 - Type: After - 1', scenarioName: 'cy-smoke-3' });
   });
 });
