@@ -2,12 +2,6 @@
 
 ## A) Run in the cloud using GitHub Actions
 
-### Setup
-- Open: _Settings_ tab -> _Secrets & Variables_ -> _Actions_
-  - Set `WOPEE_API_KEY` in __Secrets__
-  - Set `WOPEE_PROJECT_UUID` in __Variables__
-
-### Run
 - __Run Cypress tests__ workflow from _Actions_ tab
 
 ## B) Run locally on your machine
