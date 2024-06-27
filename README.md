@@ -16,7 +16,7 @@
 
 ### Run locally using Cypress
 
-- Run `npm run tests`
+- Run `npm test`
 
 ### Run locally using Docker
 
