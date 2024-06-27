@@ -2,7 +2,7 @@
 /// <reference types="@wopee-io/wopee.cy" />
 
 const dronjoBaseUrl = "https://dronjo.wopee.io/";
-const testSuiteName = "Dronjo Example: Regression tests";
+const testSuiteName = "Dronjo Example: Advanced tests";
 
 describe(testSuiteName, () => {
   before(() => {
