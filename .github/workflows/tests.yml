@@ -2,6 +2,16 @@ name: Run Cypress tests
 
 on:
   workflow_dispatch:
+    inputs:
+      spec:
+        description: 'Select the spec file to run tests'
+        type: choice
+        options:
+          - cypress/e2e/01-main.spec.cy.ts
+          - cypress/e2e/02-dronjo-simple.spec.cy
+          - cypress/e2e/03-dronjo-advanced.spec.cy
+        required: true
+        default: cypress/e2e/01-main.spec.cy.ts
 
 jobs:
     configure:
@@ -35,4 +45,4 @@ jobs:
                 WOPEE_CUSTOM_TAGS: custom-tag
                 WOPEE_ENABLE_SOFT_ASSERT: "true"
                 WOPEE_PIXEL_TO_PIXEL_DIFF_TOLERANCE: "0.1"
-            run: npm run tests
+            run: npm run cy -- --spec ${{ github.event.inputs.spec }}
