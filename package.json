@@ -5,12 +5,13 @@
     "typescript": "^5.4.5"
   },
   "scripts": {
-    "cy": "npx cypress run",
-    "install-and-test": "npm install && npm update && npm run cy",
+    "install": "npm install && npm update",
     "test": "npm run cy -- --spec cypress/e2e/01-main.spec.cy.ts",
-    "test-simple": "npm run cy -- --spec cypress/e2e/02-simple.spec.cy.ts",
-    "test-dronjo-examples": "npm run cy -- --spec cypress/e2e/03-dronjo-examples.spec.cy.ts",
-    "test-advanced-examples": "npm run cy -- --spec cypress/e2e/04-advanced-examples.spec.cy.ts",
-    "tests-in-docker": "docker run --rm --name tests-cy --env-file .env --volume ./:/home/pwuser/cy --env GITHUB_TOKEN=$GITHUB_TOKEN ghcr.io/wopee-io/runtime:latest bash -c 'cd cy && npm run tests'"
+    "test:dronjo-simple": "npm run cy -- --spec cypress/e2e/02-dronjo-simple.spec.cy.ts",
+    "test:dronjo-advanced": "npm run cy -- --spec cypress/e2e/03-dronjo-advanced.spec.cy.ts",
+    "test-in-docker": "docker run --rm --name tests-cy --env-file .env --volume ./:/home/pwuser/cy --env GITHUB_TOKEN=$GITHUB_TOKEN ghcr.io/wopee-io/runtime:latest bash -c 'cd cy && npm run install && npm run test'",
+    "test-in-docker:dronjo-simple": "docker run --rm --name tests-cy --env-file .env --volume ./:/home/pwuser/cy --env GITHUB_TOKEN=$GITHUB_TOKEN ghcr.io/wopee-io/runtime:latest bash -c 'cd cy && npm run install && npm run test:dronjo-simple'",
+    "test-in-docker:dronjo-advanced": "docker run --rm --name tests-cy --env-file .env --volume ./:/home/pwuser/cy --env GITHUB_TOKEN=$GITHUB_TOKEN ghcr.io/wopee-io/runtime:latest bash -c 'cd cy && npm run install && npm run test:dronjo-advanced'",
+    "cy": "npx cypress run"
   }
 }

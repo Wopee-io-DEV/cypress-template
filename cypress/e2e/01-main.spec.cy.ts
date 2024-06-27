@@ -33,6 +33,6 @@ describe(testSuiteName, () => {
     cy.visit("/");
     cy.get("a").contains("Login").click();
     // Autonomous (low-code) assert: Wopee visual check
-    cy.wopeeTrack({ stepName: "Contact page" });
+    cy.wopeeTrack({ stepName: "Login page" });
   });
 });

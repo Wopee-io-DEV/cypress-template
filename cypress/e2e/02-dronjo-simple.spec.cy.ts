@@ -1,7 +1,8 @@
 /// <reference types="cypress" />
 /// <reference types="@wopee-io/wopee.cy" />
 
-const testSuiteName = "Login test";
+const dronjoBaseUrl = "https://dronjo.wopee.io/";
+const testSuiteName = "Dronjo Example: Login test";
 
 describe(testSuiteName, () => {
   before(() => {
@@ -17,7 +18,7 @@ describe(testSuiteName, () => {
   });
 
   it("User is able to login", () => {
-    cy.visit("https://dronjo.wopee.io/");
+    cy.visit(dronjoBaseUrl);
     cy.get("#sign_in").click();
 
     cy.get('input[name="user"]').type("marcel.veselka@tesena.com");

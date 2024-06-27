@@ -2,7 +2,7 @@
 /// <reference types="@wopee-io/wopee.cy" />
 
 const dronjoBaseUrl = "https://dronjo.wopee.io/";
-const testSuiteName = "Dronjo regression tests";
+const testSuiteName = "Dronjo Example: Regression tests";
 
 describe(testSuiteName, () => {
   before(() => {
@@ -21,7 +21,7 @@ describe(testSuiteName, () => {
     cy.visit(dronjoBaseUrl);
 
     // Autonomous (low-code) assert: Wopee visual check
-    cy.wopeeTrack({ stepName: "Navigation to gallery" });
+    cy.wopeeTrack({ stepName: "Home page" });
   });
 
   it("Gallery page works", () => {
@@ -29,7 +29,7 @@ describe(testSuiteName, () => {
     cy.get("#navbarNav a").contains("Gallery").click();
 
     // Autonomous (low-code) assert: Wopee visual check
-    cy.wopeeTrack({ stepName: "Navigation to gallery" });
+    cy.wopeeTrack({ stepName: "Gallery page" });
   });
 
   // Visual Validation after each step
