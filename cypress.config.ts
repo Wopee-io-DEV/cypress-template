@@ -1,6 +1,6 @@
 import "dotenv/config";
-import { addWopeePlugin } from '@wopee-io/wopee.cy';
-import { defineConfig } from 'cypress';
+import { addWopeePlugin } from "@wopee-io/wopee.cy";
+import { defineConfig } from "cypress";
 
 export default defineConfig({
   retries: 0,
@@ -27,11 +27,12 @@ export default defineConfig({
     },
   },
   e2e: {
-    baseUrl: 'https://example.cypress.io',
+    baseUrl: process.env.WOPEE_PROJECT_URL || "https://dronjo.wopee.io/",
     setupNodeEvents(on, config) {
       addWopeePlugin(on, config);
 
-      on('task', {
+      // Used for advanced example to get more structured information about response from Wopee.io: `cy.task("log", response);`
+      on("task", {
         log(message) {
           console.log(message);
           return null;
