@@ -6,7 +6,11 @@
   },
   "scripts": {
     "cy": "npx cypress run",
-    "tests": "npm install && npm update && npm run cy",
+    "install-and-test": "npm install && npm update && npm run cy",
+    "test": "npm run cy -- --spec cypress/e2e/01-main.spec.cy.ts",
+    "test-simple": "npm run cy -- --spec cypress/e2e/02-simple.spec.cy.ts",
+    "test-dronjo-examples": "npm run cy -- --spec cypress/e2e/03-dronjo-examples.spec.cy.ts",
+    "test-advanced-examples": "npm run cy -- --spec cypress/e2e/04-advanced-examples.spec.cy.ts",
     "tests-in-docker": "docker run --rm --name tests-cy --env-file .env --volume ./:/home/pwuser/cy --env GITHUB_TOKEN=$GITHUB_TOKEN ghcr.io/wopee-io/runtime:latest bash -c 'cd cy && npm run tests'"
   }
 }
