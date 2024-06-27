@@ -28,6 +28,7 @@ jobs:
                 WOPEE_API_KEY: ${{ secrets.WOPEE_API_KEY }}
                 WOPEE_API_URL: ${{ vars.WOPEE_API_URL || 'https://api.wopee.io' }}
                 WOPEE_PROJECT_UUID: ${{ vars.WOPEE_PROJECT_UUID }}
+                WOPEE_PROJECT_URL: ${{ vars.WOPEE_PROJECT_URL }}
                 WOPEE_SCREENSHOT_VALIDATION_ENABLED: "true"
                 WOPEE_BRANCH_NAME: master
                 WOPEE_CI_BUILD_ID: build-123
