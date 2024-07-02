@@ -8,8 +8,8 @@ on:
         type: choice
         options:
           - cypress/e2e/01-main.spec.cy.ts
-          - cypress/e2e/02-dronjo-simple.spec.cy
-          - cypress/e2e/03-dronjo-advanced.spec.cy
+          - cypress/e2e/02-dronjo-simple.spec.cy.ts
+          - cypress/e2e/03-dronjo-advanced.spec.cy.ts
         required: true
         default: cypress/e2e/01-main.spec.cy.ts
 
