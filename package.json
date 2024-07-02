@@ -1,11 +1,11 @@
 {
   "dependencies": {
-    "@wopee-io/wopee.cy": "^4.0.0",
+    "@wopee-io/wopee.cy": "^4.1.0",
     "cypress": "^12.5.1",
     "typescript": "^5.4.5"
   },
   "scripts": {
-    "install": "npm install && npm update",
+    "install:tests": "npm install && npm update",
     "test": "npm run cy -- --spec cypress/e2e/01-main.spec.cy.ts",
     "test:dronjo-simple": "npm run cy -- --spec cypress/e2e/02-dronjo-simple.spec.cy.ts",
     "test:dronjo-advanced": "npm run cy -- --spec cypress/e2e/03-dronjo-advanced.spec.cy.ts",
