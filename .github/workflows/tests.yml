@@ -33,5 +33,5 @@ jobs:
                 # WOPEE_ENABLE_SOFT_ASSERT: "true"
                 # WOPEE_PIXEL_TO_PIXEL_DIFF_TOLERANCE: "0.1"
             run: |
-                npm install
+                npm install --prefer-offline --no-audit
                 npm run cy -- --spec ${{ github.event.inputs.spec }}
