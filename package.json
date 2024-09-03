@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@wopee-io/wopee.cy": "^4.5.0",
+    "@wopee-io/wopee.cy": "^4.6.0",
     "cypress": "^12.5.1",
     "typescript": "^5.4.5"
   },
