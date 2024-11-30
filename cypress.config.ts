@@ -27,7 +27,7 @@ export default defineConfig({
     },
   },
   e2e: {
-    baseUrl: process.env.WOPEE_PROJECT_URL || "https://dronjo.wopee.io/",
+    baseUrl: "https://dronjo.wopee.io/",
     setupNodeEvents(on, config) {
       addWopeePlugin(on, config);
 
