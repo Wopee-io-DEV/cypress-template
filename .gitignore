@@ -135,3 +135,5 @@ dist
 .tmp
 
 cypress/screenshots
+
+# macOS
