@@ -4,7 +4,7 @@ Cypress project with Wopee.io visual testing set up. The sample test `cypress/e2
 
 ## Run in GitHub Actions
 
-Open **Actions › Run Cypress tests › Run workflow**. Nothing to set up: the repository already has the `WOPEE_API_KEY` secret, and `.github/workflows/.env` has your project's API URL, project UUID and App URL.
+Open **Actions › Run Cypress tests › Run workflow**. Nothing to set up: when Wopee.io created this repository it stored the `WOPEE_API_KEY` secret and the `WOPEE_PROJECT_UUID`, `WOPEE_PROJECT_URL` and `WOPEE_API_URL` variables (Settings › Secrets and variables › Actions), and the workflow uses them.
 
 ## Run locally
 
@@ -31,7 +31,7 @@ Open your project in [Commander](https://cmd.wopee.io) › **Runs**. Every run i
 
 ## Make it yours
 
-- **App URL**: the test opens `WOPEE_PROJECT_URL` (the App URL you entered when creating the project). Change it in `.env` and `.github/workflows/.env`.
+- **App URL**: the test opens `WOPEE_PROJECT_URL` (the App URL you entered when creating the project). Change it in `.env` for local runs; for GitHub Actions, change the App URL in Commander or the `WOPEE_PROJECT_URL` variable in Settings › Secrets and variables › Actions › Variables.
 - **Add a check**: after an interaction, track another step:
   ```ts
   cy.contains("a", "Pricing").click();
