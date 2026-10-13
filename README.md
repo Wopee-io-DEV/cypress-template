@@ -16,7 +16,7 @@ cd <repository folder>
 cp .env.example .env
 ```
 
-Open `.env` and paste an API key after `WOPEE_API_KEY=`. Create one in Commander under **More › Settings › API Keys** (it is shown only once). The other values are already filled in for your project. If you cloned the public template instead, replace the `{…}` placeholders with your project's API URL (`https://api.wopee.io`), project UUID (same page as the API keys) and the URL of your app.
+Open `.env` and paste an API key after `WOPEE_API_KEY=`. Create one in Commander under **More › Settings › API Keys** (it is shown only once). The other values are already filled in for your project. If you cloned the public template instead, replace `put-your-project-uuid-here` with your project UUID (same page as the API keys) and `https://dronjo.wopee.io/` with the URL of your app.
 
 ```shell
 npm ci
@@ -47,6 +47,6 @@ Follow [Install the Cypress plugin](https://docs.wopee.io/cypress/03-install-plu
 
 ## Troubleshooting
 
-- **`Error: [{ "code": "invalid_type", ... "received": "null" }]` or `Wopee SDK configuration is invalid`**: a value in `.env` is missing or belongs to another environment. `WOPEE_API_URL`, `WOPEE_PROJECT_UUID` and `WOPEE_API_KEY` must come from the same Commander (cmd.wopee.io uses `https://api.wopee.io`).
+- **`Error: [{ "code": "invalid_type", ... "received": "null" }]` or `Wopee SDK configuration is invalid`**: a value in `.env` is missing, or the API key usually belongs to another Wopee.io instance. Create the key in the Commander you run against. `WOPEE_API_URL` is only for self-hosted instances; leave it out for cmd.wopee.io (the default is `https://api.wopee.io`).
 - **`Class extends value undefined is not a constructor`**: Cypress 15 or newer. The plugin supports Cypress 13 and 14; keep the version in `package.json`.
 - **`bad option: --no-sandbox` when started from a VS Code terminal**: run `env -u ELECTRON_RUN_AS_NODE npm test`.
