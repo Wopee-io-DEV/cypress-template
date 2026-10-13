@@ -1,5 +1,5 @@
 name: Run Cypress tests
-run-name: ${{ github.event.client_payload.runName }}
+run-name: ${{ github.event.client_payload.runName || 'Cypress tests (manual)' }}
 
 on:
   repository_dispatch:
