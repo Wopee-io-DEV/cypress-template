@@ -6,6 +6,6 @@
     "typescript": "^5.8.3"
   },
   "scripts": {
-    "test": "cypress run"
+    "test": "npx cypress run --spec \"cypress/e2e/**/*.spec.cy.ts\""
   }
 }
