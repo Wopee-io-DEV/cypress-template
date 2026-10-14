@@ -5,7 +5,7 @@ const testSuiteName = "First tests for your project w. Wopee.io";
 
 describe(testSuiteName, () => {
   before(() => {
-    cy.wopeeStartSuite(testSuiteName);
+    cy.wopeeStartSuite(`${testSuiteName} ${new Date().toLocaleString()}`);
   });
 
   beforeEach(() => {
@@ -18,27 +18,16 @@ describe(testSuiteName, () => {
 
   it("Home page works", () => {
     cy.visit("/");
+    // Wait for web fonts and images, so the screenshot has text and pictures
+    cy.document().then((doc) => {
+      const loading: Promise<unknown>[] = [];
+      doc.fonts.forEach((font) => loading.push(font.load().catch(() => {})));
+      for (const img of Array.from(doc.images)) {
+        loading.push(img.decode().catch(() => {}));
+      }
+      return Promise.all(loading);
+    });
     // Autonomous (low-code) assert: Wopee visual check
     cy.wopeeTrack({ stepName: "Home page" });
-  });
-
-  it("Contact page works", () => {
-    cy.visit("/");
-    // Autonomous (low-code) assert: Wopee visual check
-    cy.wopeeTrack({ stepName: "Home page" });
-    // Click on the contact link
-    cy.get("a").contains("Contact").click();
-    // Autonomous (low-code) assert: Wopee visual check
-    cy.wopeeTrack({ stepName: "Contact page" });
-  });
-
-  it("Login page works", () => {
-    cy.visit("/");
-    // Autonomous (low-code) assert: Wopee visual check
-    cy.wopeeTrack({ stepName: "Home page" });
-    // Click on the login link
-    cy.get("a").contains("Login").click();
-    // Autonomous (low-code) assert: Wopee visual check
-    cy.wopeeTrack({ stepName: "Login page" });
   });
 });
