@@ -1,14 +1,19 @@
-# Wopee.io Cypress tests
+# Cypress + Wopee.io
 
-Cypress project with Wopee.io visual testing set up. The sample test `cypress/e2e/wopee.cy.ts` opens your app, waits until fonts and images are loaded and sends a full-page screenshot to Wopee.io. Wopee.io compares it with the approved baseline and shows the result in Commander. Start from this test and add your own pages and flows.
+This repository is your project's Cypress test suite with Wopee.io visual testing already wired in.
+Wopee.io created it when you created the project in [Commander](https://cmd.wopee.io), and filled in your project settings.
+The sample test `cypress/e2e/simple.spec.cy.ts` opens your app's URL, waits for its fonts and images, and takes one screenshot that Wopee.io compares with an approved baseline.
+Run it as it is first, then grow it into your own tests.
 
-## Run in GitHub Actions
+## Run from Commander
 
-Open **Actions › Run Cypress tests › Run workflow**. Nothing to set up: when Wopee.io created this repository it stored the `WOPEE_API_KEY` secret and the `WOPEE_PROJECT_UUID`, `WOPEE_PROJECT_URL` and `WOPEE_API_URL` variables (Settings › Secrets and variables › Actions), and the workflow uses them.
+Nothing to set up. In Commander open **Runs** › **Start testing**. Commander runs this repository's tests in GitHub Actions with your project settings (the API key is the repository's `WOPEE_API_KEY` secret) and shows the results under Runs.
+
+Want the tests on every push or pull request? Add your own trigger to `.github/workflows/tests.yml`.
 
 ## Run locally
 
-Needs Node.js 18 or newer.
+Needs Node.js 20 or newer and git.
 
 ```shell
 git clone <this repository>
@@ -16,37 +21,48 @@ cd <repository folder>
 cp .env.example .env
 ```
 
-Open `.env` and paste an API key after `WOPEE_API_KEY=`. Create one in Commander under **More › Settings › API Keys** (it is shown only once). The other values are already filled in for your project. If you cloned the public template instead, replace `put-your-project-uuid-here` with your project UUID (same page as the API keys) and `https://dronjo.wopee.io/` with the URL of your app.
+Open `.env` and paste an API key after `WOPEE_API_KEY=`. Create one in Commander › More › Settings › API Keys (the key is shown only once).
+The other values are already your project's. Keep `.env` out of git; it is in `.gitignore`.
 
 ```shell
 npm ci
 npm test
 ```
 
-`.env` is in `.gitignore`. Never commit your API key.
+The first `npm ci` also downloads the Cypress app. The console prints a `Tracking response` line for each tracked step with its status and a link to it in Commander.
 
 ## Review in Commander
 
-Open your project in [Commander](https://cmd.wopee.io) › **Runs**. Every run is its own suite, `Cypress sample <date time>`. The first run has no baseline, so its steps are **New**: approve them to make them the baseline. Later runs are compared with it: approve a change you expect, reject a bug. Visual differences do not fail the Cypress test.
+Open Commander › Runs and the suite "First tests for your project w. Wopee.io <date time>".
+
+- First run: the step `Home page` has status **new**. Check the screenshot and **Approve** it; it becomes the baseline.
+- Next runs: the step is **ok** when the page looks the same, or **unresolved** when it differs. Open it to see the difference, then Approve (new baseline) or Reject.
+
+A visual difference is reported in Commander; it does not fail the Cypress test.
 
 ## Make it yours
 
-- **App URL**: the test opens `WOPEE_PROJECT_URL` (the App URL you entered when creating the project). Change it in `.env` for local runs; for GitHub Actions, change the App URL in Commander or the `WOPEE_PROJECT_URL` variable in Settings › Secrets and variables › Actions › Variables.
-- **Add a check**: after an interaction, track another step:
+- **Your app:** `baseUrl` in `cypress.config.ts` is `WOPEE_PROJECT_URL` (the App URL you entered in Commander), so `cy.visit("/")` opens your app. Change it in `.env` for local runs; for runs from Commander, change the App URL in Commander.
+- **Add a check:** after any interaction, one line tracks another screenshot:
+
   ```ts
-  cy.contains("a", "Pricing").click();
-  cy.pageReady();
-  cy.wopeeTrack({ stepName: "Pricing page" });
+  cy.wopeeTrack({ stepName: "Contact page" });
   ```
-  `cy.pageReady()` (in `cypress/support/commands.ts`) waits for fonts and images so the screenshot shows the finished page.
-- **Examples**: `cypress/e2e-examples/` has more examples (login flow, several scenarios, viewports). They are not part of `npm test`. Run one with `npx cypress run --config specPattern=cypress/e2e-examples/02-dronjo-simple.spec.cy.ts`.
+
+  Every `stepName` in a test gets its own baseline. On a newly loaded page, put the font and image wait from the sample before it.
+
+- **More tests:** add `*.spec.cy.ts` files under `cypress/e2e/`. `cypress/e2e/simple.spec.cy.ts` shows what every test needs: start a suite and a scenario, track, stop the scenario.
+- **Examples:** `cypress/e2e-examples/` shows multi-step flows on the Wopee.io demo app and element checks with `cy.get(...).wopeeTrack(...)`. It is not part of the default run; to try an example, copy the file into `cypress/e2e/`.
+- **Cypress version:** stay on Cypress 13 or 14; `@wopee-io/wopee.cy` does not support Cypress 15 yet.
 
 ## Add Wopee.io to an existing Cypress project
 
-Follow [Install the Cypress plugin](https://docs.wopee.io/cypress/03-install-plugin/). This repository is a working reference for the three files involved: `cypress.config.ts`, `cypress/support/commands.ts` and `cypress/e2e/wopee.cy.ts`.
+Follow [Cypress getting started](https://docs.wopee.io/cypress/01-getting-started/) in the Wopee.io docs.
 
 ## Troubleshooting
 
-- **`Error: [{ "code": "invalid_type", ... "received": "null" }]` or `Wopee SDK configuration is invalid`**: a value in `.env` is missing, or the API key usually belongs to another Wopee.io instance. Create the key in the Commander you run against. `WOPEE_API_URL` is only for self-hosted instances; leave it out for cmd.wopee.io (the default is `https://api.wopee.io`).
-- **`Class extends value undefined is not a constructor`**: Cypress 15 or newer. The plugin supports Cypress 13 and 14; keep the version in `package.json`.
-- **`bad option: --no-sandbox` when started from a VS Code terminal**: run `env -u ELECTRON_RUN_AS_NODE npm test`.
+- **`Wopee SDK configuration is invalid — cannot initialize`**: `.env` is missing or a value is empty. Run `cp .env.example .env` and paste the API key.
+- **`ZodError ... Expected object, received null`** or an authorization error: the API key usually belongs to another Wopee.io instance (or another project). Create the key in the Commander you run against. `WOPEE_API_URL` is only for self-hosted instances; leave it out for cmd.wopee.io (the default is `https://api.wopee.io`).
+- **`Cannot find module .../Cypress.app/.../app/index.js`** in a VS Code terminal: VS Code sets `ELECTRON_RUN_AS_NODE`. Run `env -u ELECTRON_RUN_AS_NODE npm test`, or use another terminal.
+- **A local run is unresolved against a baseline from Commander:** expected; your screen scale and fonts differ from Commander's runner. Keep the baseline from one place (usually Commander) and do not approve local screenshots over it.
+- **`put-your-project-uuid-here` in `.env`**: you cloned the public template, not your project's repository. Put in your project UUID from Commander › More › Settings › API Keys (`WOPEE_PROJECT_UUID`) and your app's URL (`WOPEE_PROJECT_URL`).
