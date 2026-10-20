@@ -13,7 +13,7 @@ Want the tests on every push or pull request? Add your own trigger to `.github/w
 
 ## Run locally
 
-Needs Node.js 20 or newer and git.
+Needs git and Node.js 22 or 24 (the versions Cypress 16 supports).
 
 ```shell
 git clone <this repository>
@@ -53,7 +53,7 @@ A visual difference is reported in Commander; it does not fail the Cypress test.
 
 - **More tests:** add `*.spec.cy.ts` files under `cypress/e2e/`. `cypress/e2e/simple.spec.cy.ts` shows what every test needs: start a suite and a scenario, track, stop the scenario.
 - **Examples:** `cypress/e2e-examples/` shows multi-step flows on the Wopee.io demo app and element checks with `cy.get(...).wopeeTrack(...)`. It is not part of the default run; to try an example, copy the file into `cypress/e2e/`.
-- **Cypress version:** stay on Cypress 13 or 14; `@wopee-io/wopee.cy` does not support Cypress 15 yet.
+- **Cypress version:** the template uses Cypress 16. `@wopee-io/wopee.cy` 4.13.1 and newer works with Cypress 13 to 16.
 
 ## Add Wopee.io to an existing Cypress project
 
