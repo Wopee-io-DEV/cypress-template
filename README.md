@@ -9,6 +9,8 @@ Run it as it is first, then grow it into your own tests.
 
 Nothing to set up. In Commander open **Runs** › **Start testing**. Commander runs this repository's tests in GitHub Actions with your project settings (the API key is the repository's `WOPEE_API_KEY` secret) and shows the results under Runs.
 
+The tests run in Chrome for Testing. To use another browser, set `WOPEE_CYPRESS_BROWSER` in Commander › More › Settings › Environment Variables to a browser name from `npx cypress info`; `electron` keeps Cypress's old default.
+
 Want the tests on every push or pull request? Add your own trigger to `.github/workflows/tests.yml`.
 
 ## Run locally
@@ -30,6 +32,8 @@ npm test
 ```
 
 The first `npm ci` also downloads the Cypress app. The console prints a `Tracking response` line for each tracked step with its status and a link to it in Commander.
+
+`npm test` runs in Electron, which Cypress 16 deprecates. `npm test -- --browser chrome` runs in your Chrome, closer to Commander's browser.
 
 ## Review in Commander
 
@@ -64,5 +68,6 @@ Follow [Cypress getting started](https://docs.wopee.io/cypress/01-getting-starte
 - **`Wopee SDK configuration is invalid — cannot initialize`**: `.env` is missing or a value is empty. Run `cp .env.example .env` and paste the API key.
 - **`ZodError ... Expected object, received null`** or an authorization error: the API key usually belongs to another Wopee.io instance (or another project). Create the key in the Commander you run against. `WOPEE_API_URL` is only for self-hosted instances; leave it out for cmd.wopee.io (the default is `https://api.wopee.io`).
 - **`Cannot find module .../Cypress.app/.../app/index.js`** in a VS Code terminal: VS Code sets `ELECTRON_RUN_AS_NODE`. Run `env -u ELECTRON_RUN_AS_NODE npm test`, or use another terminal.
+- **Every step is unresolved on the first run in Chrome:** Commander used to run the tests in Electron, which renders fonts slightly differently. Approve once; the next runs are ok.
 - **A local run is unresolved against a baseline from Commander:** expected; your screen scale and fonts differ from Commander's runner. Keep the baseline from one place (usually Commander) and do not approve local screenshots over it.
 - **`put-your-project-uuid-here` in `.env`**: you cloned the public template, not your project's repository. Put in your project UUID from Commander › More › Settings › API Keys (`WOPEE_PROJECT_UUID`) and your app's URL (`WOPEE_PROJECT_URL`).
