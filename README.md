@@ -2,7 +2,7 @@
 
 This repository is your project's Cypress test suite with Wopee.io visual testing already wired in.
 Wopee.io created it when you created the project in [Commander](https://cmd.wopee.io), and filled in your project settings.
-The sample test `cypress/e2e/simple.spec.cy.ts` opens your app's URL, waits for its fonts and images, and takes one screenshot that Wopee.io compares with an approved baseline.
+The sample test `cypress/e2e/simple.spec.cy.ts` opens your app's URL and takes one screenshot that Wopee.io compares with an approved baseline.
 Run it as it is first, then grow it into your own tests.
 
 ## Run from Commander
@@ -53,7 +53,7 @@ A visual difference is reported in Commander; it does not fail the Cypress test.
   cy.wopeeTrack({ stepName: "Contact page" });
   ```
 
-  Every `stepName` in a test gets its own baseline. On a newly loaded page, put the font and image wait from the sample before it.
+  Every `stepName` in a test gets its own baseline. `cy.wopeeTrack` waits up to 5 seconds for the page's web fonts and images before the screenshot; change it with `waitForAssetsTimeout`, or turn it off with `waitForAssets: false`.
 
 - **More tests:** add `*.spec.cy.ts` files under `cypress/e2e/`. `cypress/e2e/simple.spec.cy.ts` shows what every test needs: start a suite and a scenario, track, stop the scenario.
 - **Examples:** `cypress/e2e-examples/` shows multi-step flows on the Wopee.io demo app and element checks with `cy.get(...).wopeeTrack(...)`. It is not part of the default run; to try an example, copy the file into `cypress/e2e/`.
