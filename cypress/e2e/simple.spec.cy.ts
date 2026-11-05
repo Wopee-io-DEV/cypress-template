@@ -18,16 +18,7 @@ describe(testSuiteName, () => {
 
   it("Home page works", () => {
     cy.visit("/");
-    // Wait for web fonts and images, so the screenshot has text and pictures
-    cy.document().then((doc) => {
-      const loading: Promise<unknown>[] = [];
-      doc.fonts.forEach((font) => loading.push(font.load().catch(() => {})));
-      for (const img of Array.from(doc.images)) {
-        loading.push(img.decode().catch(() => {}));
-      }
-      return Promise.all(loading);
-    });
-    // Autonomous (low-code) assert: Wopee visual check
+    // Autonomous (low-code) assert: Wopee visual check. It waits for the page's fonts and images first.
     cy.wopeeTrack({ stepName: "Home page" });
   });
 });
