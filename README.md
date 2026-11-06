@@ -72,3 +72,7 @@ Follow [Cypress getting started](https://docs.wopee.io/cypress/01-getting-starte
 - **Every step is unresolved on the first run in Chrome:** Commander used to run the tests in Electron, which renders fonts slightly differently. Approve once; the next runs are ok.
 - **A local run is unresolved against a baseline from Commander:** expected; your screen scale and fonts differ from Commander's runner. Keep the baseline from one place (usually Commander) and do not approve local screenshots over it.
 - **`put-your-project-uuid-here` in `.env`**: you cloned the public template, not your project's repository. Put in your project UUID from Commander › More › Settings › API Keys (`WOPEE_PROJECT_UUID`) and your app's URL (`WOPEE_PROJECT_URL`).
+
+## Maintainers
+
+Note: the runtime image bakes this repo's `main` HEAD at every runtime build and resolves the `@wopee-io/*` ranges then, so a change reaches runners only after a runtime build. See the [release flow](https://github.com/autonomous-testing/infra/blob/main/docs/release-flow.md).
