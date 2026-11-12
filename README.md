@@ -58,7 +58,9 @@ A visual difference is reported in Commander; it does not fail the Cypress test.
 - **More tests:** add `*.spec.cy.ts` files under `cypress/e2e/`. `cypress/e2e/simple.spec.cy.ts` shows what every test needs: start a suite and a scenario, track, stop the scenario.
 - **Examples:** `cypress/e2e-examples/` shows multi-step flows on the Wopee.io demo app and element checks with `cy.get(...).wopeeTrack(...)`. It is not part of the default run; to try an example, copy the file into `cypress/e2e/`.
 - **Environments:** `WOPEE_BROWSER`, `WOPEE_OS`, `WOPEE_DEVICE` and `WOPEE_VIEWPORT` label each step, and every combination keeps its own baseline, so a run on Windows is not compared with one on Linux. Set them in `.env`, or in Commander › More › Settings › Environment Variables for runs from Commander. If you set `WOPEE_CYPRESS_BROWSER`, set `WOPEE_BROWSER` to match.
-- **Cypress version:** the template uses Cypress 16. `@wopee-io/wopee.cy` 4.13.1 and newer works with Cypress 13 to 16; 4.13.3 is the first to send the `os` label.
+- **Ignore areas:** leave changing content out of the comparison with `ignoreAreas`, CSS selectors or pixel rectangles, in `cypress.config.ts` for every step or in `cy.wopeeTrack` for one. A selector that matches nothing is skipped.
+- **Fail on a visual difference:** by default a step that differs from its baseline passes the test and waits for review in Commander. Set `WOPEE_ENABLE_SOFT_ASSERT=false` to fail the test instead.
+- **Cypress version:** the template uses Cypress 16. `@wopee-io/wopee.cy` 4.13.1 and newer works with Cypress 13 to 16; 4.13.3 is the first to send the `os` label, 4.13.6 the first to send ignore areas and to honour `WOPEE_ENABLE_SOFT_ASSERT=false`.
 
 ## Add Wopee.io to an existing Cypress project
 
